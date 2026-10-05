@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Birthday Thanh Hằng</title>
+<meta name="theme-color" content="#ffb3cf">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Thanh Hằng">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff5c97; --pink2:#ff9ec4; --pinkL:#ffe6ef;
+  --green:#2f9e6b; --green2:#8fd6ae; --greenL:#e4f6ea;
+  --ink:#1f4d3a;
+  --script:'Dancing Script','Segoe Script','Brush Script MT',cursive;
+  --sans:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:var(--sans);color:var(--ink);overflow:hidden;
+  background:linear-gradient(165deg,#edf9f1 0%,#fff2f8 52%,#e6f6ec 100%);
+  user-select:none;-webkit-user-select:none;
+}
+/* nền: các vầng sáng mềm */
+.blob{position:fixed;border-radius:50%;filter:blur(50px);opacity:.55;pointer-events:none;animation:drift 12s ease-in-out infinite alternate}
+.b1{width:60vmax;height:60vmax;left:-25vmax;top:-20vmax;background:radial-gradient(circle,#ffc2d9,transparent 70%)}
+.b2{width:55vmax;height:55vmax;right:-22vmax;bottom:-18vmax;background:radial-gradient(circle,#a9e5c3,transparent 70%);animation-delay:-5s}
+.b3{width:35vmax;height:35vmax;right:-10vmax;top:18vh;background:radial-gradient(circle,#ffd9e8,transparent 70%);animation-delay:-8s;opacity:.4}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(4vmax,3vmax) scale(1.12)}}
+
+.sparkle{position:fixed;width:14px;height:14px;pointer-events:none;opacity:0;animation:twinkle 3.2s ease-in-out infinite}
+.sparkle svg{width:100%;height:100%;display:block}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:.9;transform:scale(1) rotate(45deg)}}
+
+canvas#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:30}
+#balloons{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+.balloon{position:absolute;bottom:0;will-change:transform;animation:rise var(--dur) cubic-bezier(.3,.1,.5,1) var(--delay) forwards;transform:translateY(120vh)}
+.balloon>div{animation:sway 2.6s ease-in-out infinite alternate;transform-origin:50% 100%}
+.balloon svg{display:block;width:100%;height:auto;overflow:visible}
+@keyframes rise{from{transform:translateY(115vh)}to{transform:translateY(-135vh)}}
+@keyframes sway{from{transform:translateX(-9px) rotate(-4deg)}to{transform:translateX(9px) rotate(4deg)}}
+
+.stage{
+  position:relative;z-index:10;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:calc(env(safe-area-inset-top) + 16px) 24px calc(env(safe-area-inset-bottom) + 64px);
+  text-align:center;
+}
+
+/* bánh kem */
+.cake{width:min(58vw,29vh,230px);opacity:0;transform:translateY(60px) scale(.5);margin-bottom:6px;filter:drop-shadow(0 14px 18px rgba(255,92,151,.22))}
+.s-cake .cake{animation:cakeIn 1s cubic-bezier(.2,1.5,.4,1) forwards}
+@keyframes cakeIn{to{opacity:1;transform:none}}
+.flame{transform-box:fill-box;transform-origin:50% 100%;animation:flicker .45s ease-in-out infinite alternate}
+.flame:nth-of-type(2){animation-delay:-.15s}.flame:nth-of-type(3){animation-delay:-.3s}
+@keyframes flicker{from{transform:scale(1,1) rotate(-3deg)}to{transform:scale(.88,1.1) rotate(3deg)}}
+.glow{animation:glowp 1.2s ease-in-out infinite alternate}
+@keyframes glowp{from{opacity:.55}to{opacity:1}}
+.s-blow .flame{animation:flameOut .35s ease-in forwards}
+.s-blow .glow{animation:flameOut .3s ease-in forwards}
+@keyframes flameOut{to{transform:scale(0);opacity:0}}
+.smoke{opacity:0}
+.s-blow .smoke{animation:smoke 1.4s ease-out forwards}
+.s-blow .smoke:nth-child(2){animation-delay:.1s}.s-blow .smoke:nth-child(3){animation-delay:.2s}
+@keyframes smoke{0%{opacity:.7;transform:translateY(0) scale(.6)}100%{opacity:0;transform:translateY(-34px) scale(2.2)}}
+
+/* chữ Happy Birthday */
+.hb{font-family:var(--script);font-weight:700;line-height:.95;font-size:clamp(46px,15.5vw,74px);letter-spacing:.5px}
+.hb .row{display:block;white-space:nowrap}
+.hb .row:nth-child(1){color:var(--pink)}
+.hb .row:nth-child(2){color:var(--green);margin-top:-2px}
+.hb span.l{display:inline-block;opacity:0;transform:translateY(34px) scale(.4) rotate(-14deg);text-shadow:0 3px 0 rgba(255,255,255,.9),0 8px 18px rgba(255,92,151,.18)}
+.hb span.sp{display:inline-block;width:.28em}
+.s-title .hb span.l{animation:pop .65s cubic-bezier(.2,1.7,.4,1) forwards;animation-delay:calc(var(--i)*60ms)}
+@keyframes pop{60%{opacity:1}to{opacity:1;transform:none}}
+
+/* tên */
+.name-wrap{margin-top:8px;position:relative;display:inline-block}
+.name{
+  font-family:var(--script);font-weight:700;font-size:clamp(42px,14vw,66px);line-height:1.25;padding:0 .12em .06em;
+  background:linear-gradient(90deg,#ff4f93 0%,#ff6aa2 55%,#ff86b4 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  clip-path:inset(0 100% 0 0);opacity:0;
+}
+.s-name .name{animation:nameIn 1.1s cubic-bezier(.4,.1,.2,1) forwards}
+@keyframes nameIn{0%{clip-path:inset(0 100% 0 0);opacity:0}15%{opacity:1}100%{clip-path:inset(-10% -5% -10% -5%);opacity:1}}
+.date{
+  margin-top:8px;display:inline-flex;align-items:center;gap:10px;opacity:0;transform:scale(.7);
+  font-weight:600;font-size:14px;letter-spacing:.32em;color:var(--green);
+  padding:7px 16px 7px 20px;border-radius:99px;background:rgba(255,255,255,.72);border:1.5px solid var(--pink2);
+  box-shadow:0 6px 16px rgba(255,92,151,.14);
+}
+.date svg{width:14px;height:14px;fill:var(--pink)}
+.s-date .date{animation:dateIn .6s cubic-bezier(.2,1.6,.4,1) forwards}
+@keyframes dateIn{to{opacity:1;transform:none}}
+
+/* lời chúc */
+.msg{margin-top:20px;max-width:310px;min-height:6.6em;font-size:15.5px;line-height:1.65;font-weight:500;color:#2a5c47}
+.msg .rest{visibility:hidden}
+.msg .typed.cur::after{content:'';display:inline-block;width:2px;height:1.05em;background:var(--pink);margin-left:2px;vertical-align:-.18em;animation:blink .7s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.msg .sig{display:block;margin-top:8px;font-family:var(--script);font-weight:700;font-size:26px;color:var(--pink);opacity:0;transform:translateY(8px);transition:opacity .8s,transform .8s}
+.s-done .msg .sig{opacity:1;transform:none}
+.heart-beat{display:inline-block;animation:beat 1.4s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+
+/* thanh dưới */
+.foot{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom) + 20px);z-index:40;display:flex;justify-content:center;pointer-events:none}
+.skip{font-size:12.5px;letter-spacing:.04em;color:#7f9a8c;transition:opacity .4s}
+.s-done .skip{opacity:0}
+.replay{
+  position:absolute;bottom:0;pointer-events:auto;cursor:pointer;border:0;font:600 13.5px var(--sans);color:#fff;
+  padding:11px 22px;border-radius:99px;background:linear-gradient(90deg,var(--pink),#ff86b4);
+  box-shadow:0 8px 20px rgba(255,92,151,.35);opacity:0;transform:translateY(10px);visibility:hidden;transition:opacity .6s,transform .6s,visibility 0s .6s;
+}
+.s-done .replay{opacity:1;transform:none;visibility:visible;transition:opacity .6s,transform .6s}
+.replay:active{transform:scale(.96)}
+
+.instant *{animation-delay:0s!important;animation-duration:.01s!important;transition-duration:.01s!important}
+.instant .flame,.instant .glow{animation-duration:.01s!important}
+
+@media (max-height:640px){.msg{margin-top:12px;font-size:14px}.hb{font-size:clamp(40px,13vw,62px)}}
+@media (prefers-reduced-motion:reduce){.blob,.sparkle{animation:none}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div id="sparkles"></div>
+<div id="balloons"></div>
+<canvas id="fx"></canvas>
+
+<main class="stage" id="stage">
+  <!-- bánh kem -->
+  <svg class="cake" viewBox="0 0 200 190" aria-hidden="true">
+    <defs>
+      <linearGradient id="gPink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffa9cc"/><stop offset="1" stop-color="#ff7aae"/></linearGradient>
+      <linearGradient id="gGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b4ebc9"/><stop offset="1" stop-color="#69c996"/></linearGradient>
+      <linearGradient id="gFlame" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#ff8a3d"/><stop offset=".55" stop-color="#ffc83d"/><stop offset="1" stop-color="#fff2a8"/></linearGradient>
+      <pattern id="stripe" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#ff8fb8"/><rect width="4" height="8" fill="#fff"/></pattern>
+      <pattern id="stripeG" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#5fc08c"/><rect width="4" height="8" fill="#fff"/></pattern>
+      <clipPath id="cBot"><rect x="22" y="118" width="156" height="50" rx="14"/></clipPath>
+      <clipPath id="cTop"><rect x="46" y="78" width="108" height="44" rx="12"/></clipPath>
+      <path id="hrt" d="M0 -3 C -6 -10 -13 0 0 9 C 13 0 6 -10 0 -3Z"/>
+    </defs>
+    <!-- đĩa -->
+    <ellipse cx="100" cy="174" rx="92" ry="11" fill="#fff" stroke="#ffd0e2" stroke-width="2"/>
+    <ellipse cx="100" cy="171" rx="70" ry="6" fill="#ffeaf2"/>
+    <!-- tầng dưới -->
+    <rect x="22" y="118" width="156" height="50" rx="14" fill="url(#gPink)"/>
+    <g clip-path="url(#cBot)" fill="#fff">
+      <rect x="22" y="118" width="156" height="14"/>
+      <circle cx="34" cy="132" r="7"/><circle cx="56" cy="134" r="8"/><circle cx="80" cy="132" r="7"/><circle cx="104" cy="135" r="8"/><circle cx="128" cy="132" r="7"/><circle cx="150" cy="134" r="8"/><circle cx="170" cy="132" r="7"/>
+      <circle cx="40" cy="152" r="3" opacity=".75"/><circle cx="70" cy="156" r="3" opacity=".75"/><circle cx="100" cy="152" r="3" opacity=".75"/><circle cx="130" cy="156" r="3" opacity=".75"/><circle cx="160" cy="152" r="3" opacity=".75"/>
+    </g>
+    <!-- tầng trên -->
+    <rect x="46" y="78" width="108" height="44" rx="12" fill="url(#gGreen)"/>
+    <g clip-path="url(#cTop)" fill="#fff">
+      <rect x="46" y="78" width="108" height="12"/>
+      <circle cx="58" cy="90" r="6"/><circle cx="78" cy="92" r="7"/><circle cx="100" cy="90" r="6"/><circle cx="122" cy="92" r="7"/><circle cx="142" cy="90" r="6"/>
+    </g>
+    <use href="#hrt" x="70" y="108" fill="#fff" opacity=".9"/>
+    <use href="#hrt" x="100" y="110" fill="#ffd0e2"/>
+    <use href="#hrt" x="130" y="108" fill="#fff" opacity=".9"/>
+    <!-- nến -->
+    <rect x="66" y="52" width="8" height="28" rx="2" fill="url(#stripe)"/>
+    <rect x="96" y="48" width="8" height="32" rx="2" fill="url(#stripeG)"/>
+    <rect x="126" y="52" width="8" height="28" rx="2" fill="url(#stripe)"/>
+    <g stroke="#7b5a50" stroke-width="1.6" stroke-linecap="round"><line x1="70" y1="52" x2="70" y2="47"/><line x1="100" y1="48" x2="100" y2="43"/><line x1="130" y1="52" x2="130" y2="47"/></g>
+    <!-- ánh sáng + lửa -->
+    <circle class="glow" cx="70" cy="38" r="13" fill="#ffe08a" opacity=".5" style="transform-box:fill-box;transform-origin:center"/>
+    <circle class="glow" cx="100" cy="34" r="13" fill="#ffe08a" opacity=".5" style="transform-box:fill-box;transform-origin:center"/>
+    <circle class="glow" cx="130" cy="38" r="13" fill="#ffe08a" opacity=".5" style="transform-box:fill-box;transform-origin:center"/>
+    <path class="flame" d="M70 26 C77 34 76 44 70 46 C64 44 63 34 70 26Z" fill="url(#gFlame)"/>
+    <path class="flame" d="M100 22 C107 30 106 40 100 42 C94 40 93 30 100 22Z" fill="url(#gFlame)"/>
+    <path class="flame" d="M130 26 C137 34 136 44 130 46 C124 44 123 34 130 26Z" fill="url(#gFlame)"/>
+    <!-- khói -->
+    <g fill="#b9c6c0" style="transform-box:fill-box">
+      <circle class="smoke" cx="70" cy="40" r="4" style="transform-box:fill-box;transform-origin:center"/>
+      <circle class="smoke" cx="100" cy="36" r="4" style="transform-box:fill-box;transform-origin:center"/>
+      <circle class="smoke" cx="130" cy="40" r="4" style="transform-box:fill-box;transform-origin:center"/>
+    </g>
+  </svg>
+
+  <h1 class="hb" id="hb" aria-label="Happy Birthday"></h1>
+
+  <div class="name-wrap"><div class="name" id="name"></div></div>
+  <div class="date" id="date"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.6 4.5c2 0 3.8 1.1 5.4 3 1.6-1.9 3.4-3 5.4-3 3.6 0 5.7 3.7 4.2 7.200C19.5 16.400 12 21 12 21z"/></svg><span id="dateTxt"></span><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.6 4.5c2 0 3.8 1.1 5.4 3 1.6-1.9 3.4-3 5.4-3 3.6 0 5.7 3.7 4.2 7.200C19.5 16.400 12 21 12 21z"/></svg></div>
+
+  <p class="msg" id="msg"><span class="typed" id="typed"></span><span class="rest" id="rest"></span><span class="sig" id="sig"></span></p>
+</main>
+
+<div class="foot">
+  <div class="skip">Chạm để bỏ qua</div>
+  <button class="replay" id="replay" type="button">↻ Xem lại</button>
+</div>
+
+<script>
+/* ====== SỬA NỘI DUNG Ở ĐÂY ====== */
+const CFG = {
+  title: ['Happy', 'Birthday'],
+  name:  'Thanh Hằng',
+  date:  '04 · 10',
+  message: 'Chúc em tuổi mới thật rạng rỡ, luôn khỏe mạnh, bình yên và ngập tràn niềm vui. Cảm ơn em đã đến bên anh.',
+  sign:  'Anh yêu em'
+};
+/* ================================= */
+
+const $ = id => document.getElementById(id);
+const stage = $('stage'), body = document.body;
+document.title = 'Happy Birthday ' + CFG.name;
+$('name').textContent = CFG.name;
+$('dateTxt').textContent = CFG.date;
+$('rest').textContent = CFG.message;
+$('sig').innerHTML = CFG.sign + ' <span class="heart-beat" style="color:#ff5c97">&#10084;</span>';
+
+/* tách chữ Happy / Birthday */
+(function(){
+  const hb = $('hb'); let i = 0;
+  CFG.title.forEach(word => {
+    const row = document.createElement('span'); row.className = 'row';
+    [...word].forEach(ch => {
+      const s = document.createElement('span'); s.className = 'l'; s.textContent = ch; s.style.setProperty('--i', i++); row.appendChild(s);
+    });
+    hb.appendChild(row);
+  });
+})();
+
+/* lấp lánh nền */
+(function(){
+  const box = $('sparkles'), cols = ['#ff9ec4','#8fd6ae','#ffd36b','#fff'];
+  for (let i = 0; i < 16; i++) {
+    const d = document.createElement('div'); d.className = 'sparkle';
+    d.style.left = Math.random()*100 + 'vw'; d.style.top = Math.random()*100 + 'vh';
+    d.style.animationDelay = (Math.random()*3.2).toFixed(2) + 's';
+    d.style.animationDuration = (2.4 + Math.random()*2.2).toFixed(2) + 's';
+    const sz = 8 + Math.random()*12; d.style.width = d.style.height = sz + 'px';
+    d.innerHTML = '<svg viewBox="0 0 24 24"><path fill="'+cols[i%cols.length]+'" d="M12 0 L14.6 9.4 L24 12 L14.6 14.6 L12 24 L9.4 14.6 L0 12 L9.4 9.4Z"/></svg>';
+    box.appendChild(d);
+  }
+})();
+
+/* bóng bay */
+const BALLOON_COLORS = [['#ff9ec4','#ff5c97'],['#9fe0bb','#3fb27c'],['#ffc2d9','#ff8dbb'],['#b8efcf','#69c996'],['#ff7aae','#e8457f']];
+function launchBalloons(n, startDelay){
+  const box = $('balloons');
+  for (let i = 0; i < n; i++) {
+    const [c1,c2] = BALLOON_COLORS[Math.floor(Math.random()*BALLOON_COLORS.length)];
+    const w = 44 + Math.random()*30, id = 'bg' + Math.random().toString(36).slice(2,8);
+    const el = document.createElement('div'); el.className = 'balloon';
+    el.style.left = (4 + Math.random()*84) + 'vw'; el.style.width = w + 'px';
+    el.style.setProperty('--dur', (7 + Math.random()*4).toFixed(2) + 's');
+    el.style.setProperty('--delay', (startDelay + Math.random()*1.6).toFixed(2) + 's');
+    el.innerHTML = '<div><svg viewBox="0 0 60 100"><defs><radialGradient id="'+id+'" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".25" stop-color="'+c1+'"/><stop offset="1" stop-color="'+c2+'"/></radialGradient></defs>'
+      + '<path d="M30 2 C50 2 58 22 55 40 C52 58 38 68 30 70 C22 68 8 58 5 40 C2 22 10 2 30 2Z" fill="url(#'+id+')"/>'
+      + '<path d="M30 70 L25 78 L35 78Z" fill="'+c2+'"/>'
+      + '<path d="M30 78 C26 86 34 92 30 100" stroke="#9bb5a8" stroke-width="1.2" fill="none"/></svg></div>';
+    el.addEventListener('animationend', e => { if (e.animationName === 'rise') el.remove(); });
+    box.appendChild(el);
+  }
+}
+
+/* confetti + tim rơi */
+const cv = $('fx'), ctx = cv.getContext('2d');
+let W = 0, H = 0, DPR = 1, parts = [], ambient = false, lastAmb = 0;
+function resize(){
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = innerWidth; H = innerHeight;
+  cv.width = W*DPR; cv.height = H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+}
+addEventListener('resize', resize); resize();
+const CONF = ['#ff5c97','#ff9ec4','#ffc2d9','#2f9e6b','#8fd6ae','#fff','#ffd36b'];
+function heartPath(s){
+  ctx.beginPath(); ctx.moveTo(0, s*.45);
+  ctx.bezierCurveTo(-s*1.25, -s*.15, -s*.55, -s*1.05, 0, -s*.4);
+  ctx.bezierCurveTo( s*.55, -s*1.05,  s*1.25, -s*.15, 0, s*.45); ctx.closePath();
+}
+function burst(x, y, n, opt){
+  opt = opt || {};
+  for (let i = 0; i < n; i++) {
+    const a = (opt.dir !== undefined ? opt.dir : -Math.PI/2) + (Math.random()-.5)*(opt.spread || Math.PI*.9);
+    const sp = (opt.min || 6) + Math.random()*(opt.max || 9);
+    const r = Math.random();
+    parts.push({x, y, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp, g:.22, drag:.985,
+      s:5 + Math.random()*6, rot:Math.random()*6.28, vr:(Math.random()-.5)*.35,
+      c:(opt.cols || CONF)[Math.floor(Math.random()*(opt.cols || CONF).length)],
+      shape: opt.shape || (r < .55 ? 'rect' : r < .8 ? 'circle' : 'heart'),
+      life:0, max:150 + Math.random()*90});
+  }
+}
+function spawnAmbient(){
+  const isHeart = Math.random() < .55;
+  parts.push({x:Math.random()*W, y:-16, vx:0, vy:.7 + Math.random()*.9, g:0, drag:1, sway:Math.random()*6.28, swayS:.02 + Math.random()*.02,
+    s:isHeart ? 5 + Math.random()*5 : 6 + Math.random()*4, rot:Math.random()*6.28, vr:(Math.random()-.5)*.05,
+    c:isHeart ? ['#ff9ec4','#ffc2d9','#ff7aae'][Math.floor(Math.random()*3)] : ['#8fd6ae','#b8efcf','#69c996'][Math.floor(Math.random()*3)],
+    shape:isHeart ? 'heart' : 'petal', life:0, max:1e9, amb:true, alpha:.75});
+}
+function tick(t){
+  ctx.clearRect(0,0,W,H);
+  if (ambient && t - lastAmb > 420) { spawnAmbient(); lastAmb = t; }
+  for (let i = parts.length-1; i >= 0; i--) {
+    const p = parts[i];
+    p.life++;
+    if (p.amb) { p.sway += p.swayS; p.x += Math.sin(p.sway)*.8; p.y += p.vy; }
+    else { p.vx *= p.drag; p.vy = p.vy*p.drag + p.g; p.x += p.vx; p.y += p.vy; }
+    p.rot += p.vr;
+    let al = p.alpha || 1;
+    if (!p.amb && p.life > p.max-40) al *= Math.max(0,(p.max-p.life)/40);
+    if (p.life > p.max || p.y > H+30) { parts.splice(i,1); continue; }
+    ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.globalAlpha = al; ctx.fillStyle = p.c;
+    if (p.shape === 'rect') ctx.fillRect(-p.s/2, -p.s/3, p.s, p.s*.6);
+    else if (p.shape === 'circle') { ctx.beginPath(); ctx.arc(0,0,p.s/2.4,0,6.283); ctx.fill(); }
+    else if (p.shape === 'heart') { heartPath(p.s); ctx.fill(); }
+    else { ctx.beginPath(); ctx.ellipse(0,0,p.s,p.s*.55,0,0,6.283); ctx.fill(); }
+    ctx.restore();
+  }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+/* kịch bản ~10 giây */
+let timers = [], typeTimer = null, running = false;
+const later = (ms, fn) => timers.push(setTimeout(fn, ms));
+function center(el){ const r = el.getBoundingClientRect(); return [r.left + r.width/2, r.top + r.height/2]; }
+
+function startTyping(total){
+  const text = CFG.message, typed = $('typed'), rest = $('rest');
+  typed.classList.add('cur'); let i = 0;
+  const step = Math.max(18, total / text.length);
+  (function next(){
+    i++; typed.textContent = text.slice(0,i); rest.textContent = text.slice(i);
+    if (i < text.length) typeTimer = setTimeout(next, step); else typed.classList.remove('cur');
+  })();
+}
+function play(){
+  reset(); running = true;
+  launchBalloons(4, .2);
+  later(250,  () => body.classList.add('s-cake'));
+  later(1500, () => body.classList.add('s-title'));
+  later(3600, () => { body.classList.add('s-name'); });
+  later(4300, () => { const [x,y] = center($('name')); burst(x, y, 16, {dir:-Math.PI/2, spread:Math.PI, min:3, max:4, shape:'heart', cols:['#ff5c97','#ff9ec4','#8fd6ae']}); });
+  later(4500, () => body.classList.add('s-date'));
+  later(5700, () => body.classList.add('s-blow'));
+  later(6100, () => {
+    const [x,y] = center(document.querySelector('.cake'));
+    burst(x, y, 70, {spread:Math.PI*1.1, min:7, max:9});
+    burst(W*.1, H*.78, 40, {dir:-Math.PI/3, spread:.9, min:9, max:8});
+    burst(W*.9, H*.78, 40, {dir:-Math.PI*2/3, spread:.9, min:9, max:8});
+    launchBalloons(7, 0);
+    startTyping(3300);
+  });
+  later(10000, finish);
+}
+function finish(fast){
+  timers.forEach(clearTimeout); timers = []; clearTimeout(typeTimer);
+  if (fast === true) {
+    body.classList.add('instant');
+    ['s-cake','s-title','s-name','s-date','s-blow'].forEach(c => body.classList.add(c));
+    $('typed').classList.remove('cur'); $('typed').textContent = CFG.message; $('rest').textContent = '';
+    const [x,y] = center($('name')); burst(x, y, 30, {dir:-Math.PI/2, spread:Math.PI*1.2, min:5, max:6});
+  }
+  body.classList.add('s-done'); ambient = true; running = false;
+}
+function reset(){
+  timers.forEach(clearTimeout); timers = []; clearTimeout(typeTimer);
+  body.classList.remove('s-cake','s-title','s-name','s-date','s-blow','s-done','instant');
+  $('typed').textContent = ''; $('typed').classList.remove('cur'); $('rest').textContent = CFG.message;
+  $('balloons').innerHTML = ''; parts = []; ambient = false;
+  void body.offsetWidth;
+}
+/* chạm để bỏ qua */
+document.addEventListener('pointerdown', e => {
+  if (running && !e.target.closest('#replay')) finish(true);
+});
+$('replay').addEventListener('click', play);
+
+if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { reset(); finish(true); parts = []; }
+else {
+  const go = () => setTimeout(play, 250);
+  if (document.fonts && document.fonts.ready) Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1500))]).then(go); else go();
+}
+</script>
+</body>
+</html>

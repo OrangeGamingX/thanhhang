@@ -1,0 +1,16 @@
+{
+  "name": "Happy Birthday Thanh Hằng",
+  "short_name": "Thanh Hằng",
+  "description": "Lời chúc sinh nhật dành tặng Thanh Hằng",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f1fbf4",
+  "theme_color": "#ffb3cf",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
